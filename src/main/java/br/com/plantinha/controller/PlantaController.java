@@ -23,17 +23,17 @@ public class PlantaController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
-    @GetMapping("/{tipo}")
+    @GetMapping("/tipo/{tipo}")
     ResponseEntity<Planta> buscarPorTipo(@PathVariable String tipo) throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(service.buscarPorTipo(tipo));
     }
 
-    @GetMapping("/{genero}")
+    @GetMapping("/genero/{genero}")
     ResponseEntity<Planta> buscarPorGenero(@PathVariable String genero) throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(service.buscarPorGenero(genero));
     }
 
-    @GetMapping("/{especie}")
+    @GetMapping("/especie/{especie}")
     ResponseEntity<Planta> buscarPorEspecie(@PathVariable String especie) throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(service.buscarPorEspecie(especie));
     }
@@ -50,24 +50,12 @@ public class PlantaController {
 
     @GetMapping("/buscar/{termo}")
     ResponseEntity<List<Planta>> buscarGeneroEspecie(@PathVariable String termo) {
-        return ResponseEntity.ok(this.service.buscarGeneroEspecie(termo, termo));
+        return ResponseEntity.ok(this.service.buscarGeneroEspecie(termo));
     }
 
     @DeleteMapping("/{id}")
     ResponseEntity<Planta> deletarPorId(@PathVariable Long id) {
         this.service.deletarPorId(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{genero}")
-    ResponseEntity<Planta> deletarPorGenero(@PathVariable String genero) {
-        this.service.deletarPorGenero(genero);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{especie}")
-    ResponseEntity<Planta> deletarPorEspecie(@PathVariable String especie) {
-        this.service.deletarPorEspecie(especie);
         return ResponseEntity.noContent().build();
     }
 }

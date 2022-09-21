@@ -7,7 +7,10 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import static java.util.Objects.requireNonNullElse;
 
 @Service
 public class PlantaService {
@@ -17,10 +20,13 @@ public class PlantaService {
 
     public Planta salvar(Planta planta) {
         Planta paraSalvar = new Planta();
-        paraSalvar.setEspecie(planta.getEspecie());
-        paraSalvar.setGenero(planta.getGenero());
         paraSalvar.setTipo(planta.getTipo());
+        paraSalvar.setGenero(planta.getGenero());
+        paraSalvar.setEspecie(planta.getEspecie());
+        paraSalvar.setEspecificacao(planta.getEspecificacao());
+        paraSalvar.setNomePopular(planta.getNomePopular());
         paraSalvar.setImagem(planta.getImagem());
+        paraSalvar.setDetalhe(planta.getDetalhe());
         this.repository.save(paraSalvar);
         return paraSalvar;
     }
@@ -65,19 +71,13 @@ public class PlantaService {
         return this.repository.findAll();
     }
 
-    public List<Planta> buscarGeneroEspecie(String genero, String especie) {
-        return this.repository.findByGeneroOrEspecie(genero, especie);
+    public List<Planta> buscarGeneroEspecie(String termo) {
+        return this.repository.buscarGeneroEspecie(termo);
     }
 
     public void deletarPorId(Long id) {
         this.repository.deleteById(id);
     }
 
-    public void deletarPorGenero(String genero) {
-        this.repository.deletarPorGenero(genero);
-    }
 
-    public void deletarPorEspecie(String especie) {
-        this.repository.deletarPorEspecie(especie);
-    }
 }
