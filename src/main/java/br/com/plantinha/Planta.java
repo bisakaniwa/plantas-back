@@ -38,8 +38,8 @@ public class Planta {
 
     //Cuidados
 
-    @Column(nome = "SUBSTRATO")
-    String substrato;
+//    @Column(nome = "SUBSTRATO")
+//    String substrato;
 
     public Planta(Long id, String tipo, String genero, String especie, String especificacao, String nomePopular,
                   String imagem, String detalhe) {
