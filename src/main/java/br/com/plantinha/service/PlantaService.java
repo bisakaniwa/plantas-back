@@ -7,10 +7,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-
-import static java.util.Objects.requireNonNullElse;
 
 @Service
 public class PlantaService {
@@ -73,6 +70,21 @@ public class PlantaService {
 
     public List<Planta> buscarGeneroEspecie(String termo) {
         return this.repository.buscarGeneroEspecie(termo);
+    }
+
+    public Planta atualizarDados(Planta planta) throws ClassNotFoundException {
+        Optional<Planta> paraAtualizar = this.repository.findById(planta.getId());
+        if(paraAtualizar.isPresent()) {
+            paraAtualizar.get().setGenero(planta.getGenero());
+            paraAtualizar.get().setEspecie(planta.getEspecie());
+            paraAtualizar.get().setEspecificacao(planta.getEspecificacao());
+            paraAtualizar.get().setNomePopular(planta.getNomePopular());
+            paraAtualizar.get().setTipo(planta.getTipo());
+            paraAtualizar.get().setDetalhe(planta.getDetalhe());
+            return this.repository.save(paraAtualizar.get());
+        } else {
+            throw new ClassNotFoundException("Algo deu errado :(");
+        }
     }
 
     public void deletarPorId(Long id) {

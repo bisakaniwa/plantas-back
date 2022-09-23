@@ -53,6 +53,11 @@ public class PlantaController {
         return ResponseEntity.ok(this.service.buscarGeneroEspecie(termo));
     }
 
+    @PutMapping("/atualizar/dados")
+    ResponseEntity<Planta> atualizarDados(@RequestBody Planta planta) throws ClassNotFoundException {
+        return ResponseEntity.ok(this.service.atualizarDados(planta));
+    }
+
     @DeleteMapping("/{id}")
     ResponseEntity<Planta> deletarPorId(@PathVariable Long id) {
         this.service.deletarPorId(id);
