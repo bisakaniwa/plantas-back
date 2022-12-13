@@ -24,18 +24,28 @@ public class PlantaController {
     }
 
     @GetMapping("/tipo/{tipo}")
-    ResponseEntity<Planta> buscarPorTipo(@PathVariable String tipo) throws ChangeSetPersister.NotFoundException {
+    ResponseEntity<List<Planta>> buscarPorTipo(@PathVariable String tipo) {
         return ResponseEntity.ok(service.buscarPorTipo(tipo));
     }
 
     @GetMapping("/genero/{genero}")
-    ResponseEntity<Planta> buscarPorGenero(@PathVariable String genero) throws ChangeSetPersister.NotFoundException {
+    ResponseEntity<List<Planta>> buscarPorGenero(@PathVariable String genero) {
         return ResponseEntity.ok(service.buscarPorGenero(genero));
     }
 
     @GetMapping("/especie/{especie}")
     ResponseEntity<Planta> buscarPorEspecie(@PathVariable String especie) throws ChangeSetPersister.NotFoundException {
         return ResponseEntity.ok(service.buscarPorEspecie(especie));
+    }
+
+    @GetMapping("/tipos")
+    ResponseEntity<List<String>> buscarTipos() {
+        return ResponseEntity.ok(this.service.buscarTipos());
+    }
+
+    @GetMapping("/generos")
+    ResponseEntity<List<String>> buscarGeneros() {
+        return ResponseEntity.ok(this.service.buscarGeneros());
     }
 
     @PostMapping

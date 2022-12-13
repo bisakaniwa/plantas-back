@@ -37,22 +37,12 @@ public class PlantaService {
         }
     }
 
-    public Planta buscarPorTipo(String tipo) throws ChangeSetPersister.NotFoundException {
-        Optional<Planta> planta = this.repository.findByTipo(tipo);
-        if (planta.isPresent()) {
-            return planta.get();
-        } else {
-            throw new ChangeSetPersister.NotFoundException();
-        }
+    public List<Planta> buscarPorTipo(String tipo) {
+        return this.repository.findByTipo(tipo);
     }
 
-    public Planta buscarPorGenero(String genero) throws ChangeSetPersister.NotFoundException {
-        Optional<Planta> planta = this.repository.findByGenero(genero);
-        if (planta.isPresent()) {
-            return planta.get();
-        } else {
-            throw new ChangeSetPersister.NotFoundException();
-        }
+    public List<Planta> buscarPorGenero(String genero) {
+        return this.repository.findByGenero(genero);
     }
 
     public Planta buscarPorEspecie(String especie) throws ChangeSetPersister.NotFoundException {
@@ -62,6 +52,22 @@ public class PlantaService {
         } else {
             throw new ChangeSetPersister.NotFoundException();
         }
+    }
+
+    public List<String> buscarTipos() {
+        return this.repository.findAll().stream()
+                .map(Planta::getTipo)
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
+    public List<String> buscarGeneros() {
+        return this.repository.findAll().stream()
+                .map(Planta::getGenero)
+                .distinct()
+                .sorted()
+                .toList();
     }
 
     public List<Planta> buscarTudo() {
@@ -79,6 +85,7 @@ public class PlantaService {
             paraAtualizar.get().setEspecie(planta.getEspecie());
             paraAtualizar.get().setEspecificacao(planta.getEspecificacao());
             paraAtualizar.get().setNomePopular(planta.getNomePopular());
+            paraAtualizar.get().setImagem(planta.getImagem());
             paraAtualizar.get().setTipo(planta.getTipo());
             paraAtualizar.get().setDetalhe(planta.getDetalhe());
             return this.repository.save(paraAtualizar.get());

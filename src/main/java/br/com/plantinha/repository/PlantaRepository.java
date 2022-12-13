@@ -12,9 +12,9 @@ import java.util.Optional;
 @Repository
 public interface PlantaRepository extends JpaRepository<Planta, Long> {
 
-    Optional<Planta> findByTipo(String tipo);
+    List<Planta> findByTipo(String tipo);
 
-    Optional<Planta> findByGenero(String genero);
+    List<Planta> findByGenero(String genero);
 
     Optional<Planta> findByEspecie(String especie);
 
